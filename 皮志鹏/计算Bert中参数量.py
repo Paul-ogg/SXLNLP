@@ -2,7 +2,8 @@
 计算Bert参数量（一层Transformer）:
 
 embedding层（token_embedding + segment_embedding + position_embedding + add&normalize）+
-Transformer层（self-attention + feedforward + pool_fc）
+Transformer层（self-attention + feedforward ） + 
+pool_fc
 
 self-attention = attention + liner + add&normalize
 feedforward = liner1 + liner2 + add&normalize
@@ -21,7 +22,6 @@ add_normalize = embedding_size + embedding_size
 embedding_parameters = token_embedding_params + segment_embedding_params + position_embedding_params + add_normalize
 
 
-
 attention = (embedding_size * embedding_size + embedding_size) * 3  # 计算Q K V各一组参数
 liner = embedding_size * embedding_size + embedding_size
 self_attention = attention + liner + add_normalize
@@ -30,10 +30,11 @@ liner1 = embedding_size * intermediate_size + intermediate_size
 liner2 = intermediate_size * embedding_size + embedding_size
 feedforward = liner1 + liner2 + add_normalize
 
-pool_fc = embedding_size * embedding_size + embedding_size
-transformer_parameters = self_attention + feedforward + pool_fc
+transformer_parameters = self_attention + feedforward 
 
-model_parameters = embedding_parameters + transformer_parameters
+pool_fc = embedding_size * embedding_size + embedding_size
+
+model_parameters = embedding_parameters + transformer_parameters + pool_fc
 
 from transformers import BertModel
 
